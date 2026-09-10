@@ -65,6 +65,18 @@ cd midoffice-workspace
 
 ---
 
+**如果你拿到的是 tar.gz 而不是 git 地址**:解开后三个目录已经就位,各自带完整的 git 历史(那条初始 commit 就是「既有系统现状」的基线,冻结校验要用它)。`setup.sh` 的克隆步骤会自动跳过,直接跑它做环境检查就行:
+
+```bash
+tar -xzf midoffice-workspace-<日期>.tar.gz
+cd midoffice-workspace
+./setup.sh                      # 无需 github-owner 参数
+```
+
+包里**不含** `node_modules`(跑 `npm --prefix midoffice-web install` 生成)、也**不含** BMAD(`.kiro/` 与 `_bmad/`,按上面的说明自己装)。三个 repo 都没有配 remote —— 要接你们自己的 git 服务器,自行 `git remote add`。
+
+---
+
 ## 三、跑起来
 
 所有命令都在**工作区根**执行:
