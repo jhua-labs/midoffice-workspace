@@ -43,18 +43,25 @@ midoffice-workspace/          ← 规划 repo。BMAD 的 project-root 就在这�
 | BMAD | **6.10.0**(本起点的 `_bmad/` 配置按这一版生成) |
 | Coding Agent | AWS 的 Coding Agent kiro-cli(按现场提供的认证方式与参数完成登录) |
 
-**把三个 repo 摆成上面的布局:**
+**把三个 repo 摆成上面的布局** —— 克隆规划 repo 之后跑一次 `setup.sh`:
 
 ```bash
 git clone <midoffice-workspace 的地址>
 cd midoffice-workspace
-git clone <midoffice-api 的地址>   midoffice-api
-git clone <midoffice-web 的地址>   midoffice-web
+./setup.sh <github-owner>       # 克隆两个代码 repo + 检查环境
 ```
 
-目录名必须是 `midoffice-api` / `midoffice-web` —— 规划 repo 的 `.gitignore` 按这两个名字排除它们。
+脚本会把两个代码 repo 克隆到**必须的目录名** `midoffice-api` / `midoffice-web`(规划 repo 的 `.gitignore` 按这两个名字排除它们),然后逐项检查 JDK / Maven / Node / BMAD 并告诉你缺什么。它**不会覆盖任何已存在的目录**,重复跑是安全的。
 
-**装 BMAD:** `.kiro/`(约 11MB 的 skill 文件)**不进 git**,它属于每台机器的本地安装。在工作区根装完 BMAD 之后,如果安装器改写了 `_bmad/` 里的配置,用 `git checkout -- _bmad/` 恢复共享的那一份。
+**装 BMAD。** `.kiro/`(约 11MB 的 skill 文件)和 `_bmad/`(它生成的配置)**都不进 git** —— 它们属于每台机器,配置里还含安装者姓名一类的本机信息。在**工作区根**安装 BMAD 6.10.0,然后核对这几个取值:
+
+| 配置项 | 取值 | 说明 |
+|---|---|---|
+| `project_name` | `midoffice` | |
+| `document_output_language` / `communication_language` | `Chinese` | 换成你们团队的语言也可以,但**全组要一致**,否则产物中英混杂 |
+| `output_folder` | `{project-root}/_bmad-output` | 保持默认。**必须是相对 `{project-root}` 的写法**,不要填成绝对路径 |
+| `test_stack_type`(`_bmad/tea/config.yaml`) | `fullstack` | 安装器可能给 `backend`。这个项目前后端都有,填错会让测试架构相关的步骤漏掉前端 |
+| `user_name` | 你自己的名字 | 不需要跟别人一致 |
 
 ---
 
