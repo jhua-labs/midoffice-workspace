@@ -1,0 +1,72 @@
+# ─────────────────────────────────────────────────────────────
+# midoffice-workspace —— 规划 repo
+#
+# 只跟踪「所有角色都要读」的规划产物：
+#   _bmad/          BMAD 配置（用 {project-root} 占位符，跨机器安全）
+#   _bmad-output/   PRD、架构、Epic、story spec、测试产物
+#   docs/           既有系统的现状文档
+#   requirements/   PRD 输入
+#
+# 两个代码 repo 各自独立版本管理，本 repo 不跟踪它们。
+# ─────────────────────────────────────────────────────────────
+
+
+# ── 1. 代码 repo：各自独立，规划 repo 不跟踪 ─────────────────
+/midoffice-api/
+/midoffice-web/
+
+
+# ── 2. 本机工具安装：不是仓库产物 ───────────────────────────
+# BMAD 的 skill 文件（约 11MB）由每台机器自己安装，版本属于机器。
+# 克隆后先装 BMAD，再 `git checkout -- _bmad/` 恢复共享配置。
+.kiro/
+
+
+# ── 3. 机器专属产物：内含绝对路径，跨机器 clone 后无效 ───────
+# 现状扫描报告（记录了本机的 project_root）
+docs/project-scan-report.json
+
+# UX 评审的过程记录（正文引用本机文件路径）
+_bmad-output/planning-artifacts/**/.working/
+_bmad-output/planning-artifacts/**/validation-report.md
+_bmad-output/planning-artifacts/**/validation-report.html
+
+# 浏览器验收的本地运行结果（记录了本机运行时与项目路径）
+_bmad-output/implementation-artifacts/frontend-acceptance-results/
+_bmad-output/**/test-results/
+_bmad-output/**/playwright-report/
+
+
+# ── 4. 可选：状态跟踪表 ─────────────────────────────────────
+# 这是唯一一份「所有人都要写」的文件，跨机器容易冲突。二选一：
+#   (a) 跟踪它（默认，保持下面一行注释）——谁跑完 story 谁改、改完
+#       立刻 push，把冲突窗口压到最小。注意它里面的 story_location
+#       字段是绝对路径，改成相对路径再提交（没有任何工具会解析这个
+#       字段，改了不影响功能）。
+#   (b) 不跟踪它——由一个人持有权威副本、其他人只读。选这条就取消
+#       下面一行的注释。
+# _bmad-output/implementation-artifacts/sprint-status.yaml
+
+
+# ── 5. 构建产物与依赖 ───────────────────────────────────────
+# 第 1 节按目录名排除了代码 repo；这里再按类型兜一层，防止有人把
+# 代码 repo clone 成了别的目录名。
+node_modules/
+target/
+dist/
+*.class
+
+
+# ── 6. 本地数据库文件 ───────────────────────────────────────
+data/
+*.db
+*.mv.db
+*.trace.db
+
+
+# ── 7. 编辑器与系统垃圾 ─────────────────────────────────────
+.DS_Store
+*.log
+.idea/
+*.iml
+.vscode/
