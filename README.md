@@ -15,7 +15,7 @@ midoffice-workspace/          ← 规划 repo。BMAD 的 project-root 就在这�
   _bmad/                      ← BMAD 配置(共享)
   _bmad-output/               ← PRD、架构、Epic、story spec、测试产物(运行后生成)
   docs/                       ← 既有系统的现状文档(运行后生成)
-  requirements/prd-input/     ← PRD 输入
+  requirements/prd-input/     ← PRD 输入(空目录;按文档 1.3 下载后放进来)
   midoffice-api/              ← 独立 git repo:后端
   midoffice-web/              ← 独立 git repo:前端
 ```
